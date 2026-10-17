@@ -1,0 +1,13 @@
+site_name: MIPY
+site_description: Missing-data imputation in Python for high-dimensional longitudinal data
+nav:
+  - Home: index.md
+  - Analyse your data: your_data.md
+  - Command line: command_line.md
+  - Methods: methods.md
+  - Getting started: getting_started.md
+  - Benchmarking: benchmarking.md
+  - Large cohorts: large_cohorts.md
+  - R agreement: r_agreement.md
+  - Reproducing the paper: paper.md
+theme: readthedocs

@@ -1,0 +1,12 @@
+{
+  "title": "MIPY: Missing-data Imputation in Python for high-dimensional longitudinal data",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [
+    {"name": "Kumar, Neelesh", "affiliation": "Indian Institute of Technology (ISM) Dhanbad", "orcid": "0009-0007-5435-003X"},
+    {"name": "Bhattacharjee, Atanu", "affiliation": "University of Dundee", "orcid": "0000-0002-5757-5513"},
+    {"name": "Vishwakarma, Gajendra K.", "affiliation": "Indian Institute of Technology (ISM) Dhanbad", "orcid": "0000-0002-2804-4334"},
+    {"name": "Majumdar, Tanmoy", "affiliation": "Indian Institute of Technology (ISM) Dhanbad", "orcid": "0009-0003-2297-7808"}
+  ],
+  "keywords": ["missing data", "imputation", "multiple imputation", "longitudinal", "proteomics", "Python"]
+}

@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mipy-impute"
+version = "2.1.0"
+description = "MIPY: missing-data imputation and benchmarking in Python for high-dimensional longitudinal data"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+  {name = "Neelesh Kumar", email = "23dr0092@iitism.ac.in"},
+  {name = "Atanu Bhattacharjee"},
+  {name = "Gajendra K. Vishwakarma"},
+  {name = "Tanmoy Majumdar"},
+]
+requires-python = ">=3.9"
+dependencies = [
+  "numpy>=1.23",
+  "pandas>=1.5",
+  "scipy>=1.9",
+  "scikit-learn>=1.2",
+  "psutil>=5.9",
+  "matplotlib>=3.6",
+  "openpyxl>=3.0",
+]
+keywords = ["missing data", "imputation", "multiple imputation", "longitudinal", "proteomics", "benchmark"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+  "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+
+[project.optional-dependencies]
+ml = ["miceforest>=6", "lightgbm>=4"]
+automl = ["hyperimpute"]
+bigdata = ["polars>=1.0", "duckdb>=1.0"]
+plot = []                       # matplotlib is now a core dependency
+all = ["miceforest>=6", "lightgbm>=4", "polars>=1.0", "duckdb>=1.0"]
+test = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/neelesh2302-creator/mipy"
+Documentation = "https://github.com/neelesh2302-creator/mipy/tree/main/docs"
+Issues = "https://github.com/neelesh2302-creator/mipy/issues"
+
+[project.scripts]
+mipy = "mipy.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mipy = ["r/*.R", "data/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

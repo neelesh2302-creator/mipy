@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+.mipy_cache/
+mipy_results/
+*_results/
+# keep patient data out of the repository
+src/mipy/data/*.csv
+*.xlsx
+# trial runs inside the package folder
+/*.csv
+ex_out/

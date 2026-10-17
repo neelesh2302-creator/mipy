@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use MIPY, please cite it as below."
+title: "MIPY: Missing-data Imputation in Python for high-dimensional longitudinal data"
+version: 2.1.0
+date-released: 2026-10-16
+license: MIT
+authors:
+  - family-names: Kumar
+    given-names: Neelesh
+    orcid: "https://orcid.org/0009-0007-5435-003X"
+    affiliation: "Indian Institute of Technology (ISM) Dhanbad"
+  - family-names: Bhattacharjee
+    given-names: Atanu
+    orcid: "https://orcid.org/0000-0002-5757-5513"
+    affiliation: "University of Dundee"
+  - family-names: Vishwakarma
+    given-names: Gajendra K.
+    orcid: "https://orcid.org/0000-0002-2804-4334"
+    affiliation: "Indian Institute of Technology (ISM) Dhanbad"
+  - family-names: Majumdar
+    given-names: Tanmoy
+    orcid: "https://orcid.org/0009-0003-2297-7808"
+    affiliation: "Indian Institute of Technology (ISM) Dhanbad"
+keywords: [missing data, imputation, multiple imputation, longitudinal data, proteomics]

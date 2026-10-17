@@ -1,0 +1,9 @@
+include README.md LICENSE CHANGELOG.md CITATION.cff
+recursive-include tests *.py
+recursive-include docs *.md *.png
+recursive-include src/mipy/r *.R
+include src/mipy/data/README.txt
+global-exclude *.pyc __pycache__ .mipy_cache
+prune notebooks
+prune build
+prune dist
