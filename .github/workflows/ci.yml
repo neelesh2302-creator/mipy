@@ -11,6 +11,11 @@ jobs:
         exclude:                      # Python 3.9 is tested on Linux and Windows
           - os: macos-latest
             python: "3.9"
+          - os: ubuntu-latest         # ubuntu-latest is Ubuntu 26.04 from October 2026,
+            python: "3.9"             # which has no Python 3.9 ...
+        include:
+          - os: ubuntu-24.04          # ... so Linux tests 3.9 on Ubuntu 24.04
+            python: "3.9"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
