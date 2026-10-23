@@ -23,7 +23,15 @@ def rubin(q, u):
 
 def fmi_summary(draws, X_masked):
     """FMI for (a) the mean of the imputed cells and (b) each column mean,
-    summarised by the median and IQR across columns (as in MIPY v1)."""
+    summarised by the median and IQR across columns (as in MIPY v1).
+
+    (a) The estimate of completion l is the mean of its N imputed values
+    (every cell that is NaN in ``X_masked``, all columns together); its
+    within-imputation variance is U_l = s_l^2 / N, s_l^2 being the variance
+    of those N values, i.e. the squared standard error of a mean of N
+    independent values. (b) For column k the estimate is the column mean
+    over all rows (observed and imputed) and U_l = s_lk^2 / n.
+    """
     miss = np.isnan(X_masked)
     D = [np.asarray(d, dtype=float) for d in draws]
     vals = [d[miss] for d in D]

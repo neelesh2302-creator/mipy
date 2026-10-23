@@ -1,0 +1,16 @@
+method,family,package,function,peer-reviewed,multiple imputation,new in MIPY,status
+Mean,Naive,scikit-learn,SimpleImputer(strategy='mean'),no,no,no,will run
+Median,Naive,scikit-learn,SimpleImputer(strategy='median'),no,no,no,will run
+LOCF,Longitudinal,pandas,groupby().ffill().bfill(),no,no,no,will run
+KNN,Neighbour,scikit-learn,KNNImputer,yes,no,no,will run
+softImpute,Low-rank,mipy (numpy),"soft-thresholded SVD, CV lambda",yes,no,no,will run
+MICE-Bayes,Chained,mipy (scikit-learn),BayesianRidge in FCS loop,adapted,yes,no,will run
+missForest,Chained,mipy (scikit-learn),ExtraTreesRegressor in FCS loop,adapted,no,no,will run
+sklearn-II,Chained,scikit-learn,IterativeImputer,no,no,no,will run
+miceforest,Chained,miceforest,ImputationKernel().mice(),no,no,no,will run
+HyperImpute,AutoML,hyperimpute,Imputers().get('hyperimpute'),yes,no,no,will run
+GAIN,Generative,hyperimpute,Imputers().get('gain'),yes,no,no,will run
+MinProb,Left-censored,mipy (numpy),"MinProb, per protein",adapted,no,no,will run
+QRILC,Left-censored,mipy (scipy),"QRILC, per protein",adapted,no,no,will run
+MICE-Long,Longitudinal chained,mipy,"FCS + within-patient terms, cluster bootstrap",no,yes,yes,will run
+MICE-LongMNAR,Selection-model MNAR,mipy,MICE-Long + selection-model draws (gamma),no,yes,yes,will run

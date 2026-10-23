@@ -1,0 +1,4 @@
+mechanism,cells masked,% of observed,matrix missing after (%),mean z of masked cells
+MCAR,26130,19.98,28.35,0.01
+MAR,26001,19.89,28.26,0.06
+MNAR,26061,19.93,28.3,-0.986

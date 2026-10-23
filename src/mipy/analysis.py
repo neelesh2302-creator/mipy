@@ -812,7 +812,7 @@ def _methods_table(res: Result):
         rows.append({"method": name, "family": i.family, "package / function": f"{i.package}: {i.function}",
                      "multiple imputation": "yes" if i.multiple else "no",
                      "uses patients": "yes" if i.longitudinal else "no",
-                     "peer-reviewed description": "yes" if i.peer_reviewed else "no",
+                     "peer-reviewed description": i.evidence,
                      "status": "run" if name in res.methods else f"skipped: {res.skipped[name]}"})
     return pd.DataFrame(rows)
 

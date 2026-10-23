@@ -1,0 +1,15 @@
+dataset,column,distinct values,dtype,why not a protein
+RFS,RFS,236,int64,survival
+RFS,event,2,int64,survival
+RFS,diarrhea_grade,4,int64,n_unique <= 10
+RFS,slide_print_batch,7,int64,n_unique <= 10
+RFS,trg_score,5,float64,n_unique <= 10
+RFS,ypn_stage,3,float64,n_unique <= 10
+RFS,ypt_stage,5,float64,n_unique <= 10
+MFS,MFS,257,int64,survival
+MFS,event,2,int64,survival
+MFS,diarrhea_grade,4,int64,n_unique <= 10
+MFS,slide_print_batch,7,int64,n_unique <= 10
+MFS,trg_score,5,float64,n_unique <= 10
+MFS,ypn_stage,3,float64,n_unique <= 10
+MFS,ypt_stage,5,float64,n_unique <= 10

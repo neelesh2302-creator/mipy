@@ -75,3 +75,16 @@ def test_minprob_qrilc_r_parameters():
     assert np.isclose(sd, np.median(np.std(D, axis=1, ddof=1)))
     par = qrilc_params_r(D)
     assert (par["sd"] > 0).all() and (par["p_missing"] == 0).all()
+
+
+def test_ess_diagnostics_leave_imputations_unchanged(cohort, ctx):
+    from mipy import runner
+    from mipy.masking import Amputer
+    amp = Amputer(cohort["X"], rate=0.2).ampute("MNAR", 2)
+    c = ctx.with_(gamma=2.0, m=2, mice_iter=2)
+    plain = runner.run_one("MICE-LongMNAR", amp["X"], c)
+    diag = runner.run_one("MICE-LongMNAR", amp["X"], c.with_(extra={"ess": True}))
+    assert np.array_equal(plain["imputed"], diag["imputed"])
+    assert "diag" not in plain
+    d = diag["diag"]
+    assert d["candidates"] == 50 and 1.0 <= d["ess_min"] <= d["ess_median"] <= 50.0

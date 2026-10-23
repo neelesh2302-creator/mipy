@@ -1,0 +1,219 @@
+[
+  {
+    "id": "C1",
+    "gate": "A",
+    "label": "core scientific stack importable",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "C2",
+    "gate": "A",
+    "label": "both datasets located",
+    "passed": true,
+    "detail": "searched: C:\\Users\\DELL\\Missing_Python\\data; N:\\Research\\MIPY\\Data; C:\\Users\\DELL\\Research\\MIPY\\Data; C:\\Users\\DELL\\Missing_Python\\Data; C:\\Users\\DELL\\Missing_Python"
+  },
+  {
+    "id": "RFS.C3",
+    "gate": "A",
+    "label": "ID and visit columns identified",
+    "passed": true,
+    "detail": "ID=Patient_ID, visit=sampling_point"
+  },
+  {
+    "id": "RFS.C4",
+    "gate": "A",
+    "label": "protein count = 507",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "RFS.C5",
+    "gate": "A",
+    "label": "no duplicate (patient, visit) rows",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "RFS.C6",
+    "gate": "A",
+    "label": "288 observations",
+    "passed": true,
+    "detail": "got 288"
+  },
+  {
+    "id": "RFS.C7",
+    "gate": "A",
+    "label": "80 patients",
+    "passed": true,
+    "detail": "got 80"
+  },
+  {
+    "id": "RFS.C8",
+    "gate": "A",
+    "label": "overall missingness matches R (10.5%)",
+    "passed": true,
+    "detail": "got 10.45%"
+  },
+  {
+    "id": "RFS.C9",
+    "gate": "A",
+    "label": "named proteins match published missingness",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "MFS.C3",
+    "gate": "A",
+    "label": "ID and visit columns identified",
+    "passed": true,
+    "detail": "ID=Patient_ID, visit=sampling_point"
+  },
+  {
+    "id": "MFS.C4",
+    "gate": "A",
+    "label": "protein count = 507",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "MFS.C5",
+    "gate": "A",
+    "label": "no duplicate (patient, visit) rows",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "MFS.C6",
+    "gate": "A",
+    "label": "288 observations",
+    "passed": true,
+    "detail": "got 288"
+  },
+  {
+    "id": "MFS.C7",
+    "gate": "A",
+    "label": "80 patients",
+    "passed": true,
+    "detail": "got 80"
+  },
+  {
+    "id": "MFS.C8",
+    "gate": "A",
+    "label": "overall missingness matches R (10.5%)",
+    "passed": true,
+    "detail": "got 10.45%"
+  },
+  {
+    "id": "MFS.C9",
+    "gate": "A",
+    "label": "named proteins match published missingness",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "C10",
+    "gate": "A",
+    "label": "protein blocks identical in both files (cell by cell)",
+    "passed": true,
+    "detail": "same columns=True, same patient-visit keys=True"
+  },
+  {
+    "id": "C11",
+    "gate": "A",
+    "label": "every patient keeps the baseline sampling point",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "A1",
+    "gate": "A",
+    "label": "MCAR masks values at random (|mean z| < 0.1)",
+    "passed": true,
+    "detail": "mean z = 0.01"
+  },
+  {
+    "id": "A2",
+    "gate": "A",
+    "label": "MNAR removes low values (mean z < -0.3)",
+    "passed": true,
+    "detail": "mean z = -0.986"
+  },
+  {
+    "id": "A3",
+    "gate": "A",
+    "label": "every protein keeps at least 12 observed cells",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "R1",
+    "gate": "A",
+    "label": "every imputation run finished",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "R1b",
+    "gate": "A",
+    "label": "every method completed the real (unmasked) data",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "D0",
+    "gate": "A",
+    "label": "unconditional baselines score NRMSE near 1 under MCAR",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "D1",
+    "gate": "A",
+    "label": "constant imputer has no within-protein correlation",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "M1",
+    "gate": "A",
+    "label": "multiple imputations differ (between-imputation variance > 0)",
+    "passed": true,
+    "detail": ""
+  },
+  {
+    "id": "M2",
+    "gate": "A",
+    "label": "under MCAR, proper MI intervals cover 85-99% of masked cells",
+    "passed": true,
+    "detail": "MICE-Bayes 94.4%, MICE-Long 94.6%, MICE-LongMNAR 94.1%, softImpute-MI 95.3%, missForest-MI 95.5%, miceforest-MI 95.5%"
+  },
+  {
+    "id": "R2",
+    "gate": "A",
+    "label": "every repeated run finished",
+    "passed": true,
+    "detail": "15 methods, up to 10 maskings"
+  },
+  {
+    "id": "Q1",
+    "gate": "A",
+    "label": "softImpute: Python and R agree cell by cell (r >= 0.995)",
+    "passed": true,
+    "detail": "lowest r = 0.99998"
+  },
+  {
+    "id": "Q2",
+    "gate": "A",
+    "label": "MinProb/QRILC: Python reproduces imputeLCMD's parameters (< 1e-6)",
+    "passed": true,
+    "detail": "largest difference 6.39e-14"
+  },
+  {
+    "id": "B1",
+    "gate": "A",
+    "label": "data handling: every completed step passed its correctness check (IDs, row counts, round-trip sums)",
+    "passed": true,
+    "detail": ""
+  }
+]

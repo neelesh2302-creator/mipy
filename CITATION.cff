@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use MIPY, please cite it as below."
 title: "MIPY: Missing-data Imputation in Python for high-dimensional longitudinal data"
-version: 2.1.0
-date-released: 2026-10-16
+version: 2.1.1
+date-released: 2026-10-24
 license: MIT
 authors:
   - family-names: Kumar

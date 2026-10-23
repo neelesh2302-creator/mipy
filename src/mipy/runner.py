@@ -61,13 +61,16 @@ class CheckpointStore:
 
 def run_one(name, X, ctx: ImputeContext, keep_draws=True):
     """Run a method and return a result record (never raises)."""
-    from .imputers import run
+    from . import imputers
     t0 = time.time()
     try:
-        out, draws = run(name, X, ctx)
-        return {"imputed": out, "draws": draws if keep_draws else None, "ok": True,
-                "error": "", "m": len(draws) if draws else 1,
-                "seconds": time.time() - t0}
+        out, draws = imputers.run(name, X, ctx)
+        rec = {"imputed": out, "draws": draws if keep_draws else None, "ok": True,
+               "error": "", "m": len(draws) if draws else 1,
+               "seconds": time.time() - t0}
+        if imputers.LAST_DIAGNOSTICS:               # e.g. effective sample sizes
+            rec["diag"] = dict(imputers.LAST_DIAGNOSTICS)
+        return rec
     except Exception as e:                          # recorded, not raised
         return {"imputed": None, "draws": None, "ok": False, "m": 0,
                 "error": f"{type(e).__name__}: {e}", "seconds": time.time() - t0}
@@ -185,6 +188,8 @@ def score_record(rec, X_true, mask, patient):
         from .mi import predictive_coverage
         cov = predictive_coverage(truth, rec["draws"], mask)
         res["coverage"] = cov["coverage"]
+    if rec.get("diag"):
+        res["diag"] = rec["diag"]
     return res
 
 

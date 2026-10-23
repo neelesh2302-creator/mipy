@@ -1,0 +1,9 @@
+dataset,quantity,published (R),Python,match
+RFS,overall missing (%),10.5,10.45,True
+RFS,Leptin R missing (%),81.9,81.9,True
+RFS,Glut2 missing (%),77.8,77.8,True
+RFS,GDF-15 missing (%),73.3,73.3,True
+MFS,overall missing (%),10.5,10.45,True
+MFS,Leptin R missing (%),81.9,81.9,True
+MFS,Glut2 missing (%),77.8,77.8,True
+MFS,GDF-15 missing (%),73.3,73.3,True

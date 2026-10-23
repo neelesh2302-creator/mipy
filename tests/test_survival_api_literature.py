@@ -54,6 +54,19 @@ def test_public_api(cohort):
     assert len(mipy.literature()) >= 10
 
 
+def test_evidence_classes_match_paper():
+    """Evidence behind each method as in Table 2 of the MIPY paper."""
+    ev = mipy.list_methods().set_index("method")["peer-reviewed"]
+    assert set(ev) <= {"yes", "adapted", "no"}
+    for name in ("MICE-Bayes", "missForest", "MinProb", "QRILC"):
+        assert ev[name] == "adapted"
+    for name in ("KNN", "softImpute", "HyperImpute", "GAIN", "MinProb-R", "QRILC-R"):
+        assert ev[name] == "yes"
+    for name in ("Mean", "Median", "LOCF", "sklearn-II", "miceforest", "MICE-Long",
+                 "MICE-LongMNAR", "softImpute-MI", "missForest-MI", "miceforest-MI"):
+        assert ev[name] == "no"
+
+
 def test_benchmark_api(cohort):
     df = pd.DataFrame(cohort["full"], columns=[f"P{k}" for k in range(cohort["X"].shape[1])])
     df.insert(0, "visit", cohort["time"])

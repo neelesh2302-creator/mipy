@@ -436,6 +436,23 @@ def _longitudinal_index(patient):
     return codes, prev, nxt, counts
 
 
+# Diagnostics of the last run in this process (read by runner.run_one).
+# Filled only when asked for with ctx.extra["ess"] = True; computing them
+# draws no random numbers, so the imputations are the same either way.
+LAST_DIAGNOSTICS: dict = {}
+
+
+def _ess_summary(values):
+    """Summary of effective sample sizes of the importance resampling."""
+    v = np.asarray(values, dtype=float)
+    if v.size == 0:
+        return {}
+    return {"ess_median": float(np.median(v)), "ess_mean": float(v.mean()),
+            "ess_p10": float(np.percentile(v, 10)), "ess_p01": float(np.percentile(v, 1)),
+            "ess_min": float(v.min()), "ess_below10_pct": float(100 * np.mean(v < 10)),
+            "ess_cells": int(v.size)}
+
+
 def _iterative_long(Xm, ctx, gamma=0.0, n_imp=None, n_candidates=50):
     """Longitudinal chained equations (MIPY v2).
 
@@ -452,8 +469,15 @@ def _iterative_long(Xm, ctx, gamma=0.0, n_imp=None, n_candidates=50):
     values are favoured as under a detection limit; a_k matches each
     protein's missing fraction. gamma = 0 is MAR. gamma is a sensitivity
     parameter, not something the data can estimate.
+
+    With ctx.extra["ess"] = True and gamma > 0, the effective sample size
+    (sum w)^2 / sum w^2 of the candidate weights is recorded for every
+    imputed cell of the last sweep of every completion and summarised in
+    LAST_DIAGNOSTICS (C = n_candidates is the largest possible value).
     """
     from sklearn.linear_model import BayesianRidge
+    want_ess = bool((ctx.extra or {}).get("ess")) and gamma > 0
+    ess_vals = []
     n_imp = ctx.m if n_imp is None else n_imp
     schema = _schema(ctx, Xm)
     patient = ctx.rows_by_patient()
@@ -478,7 +502,7 @@ def _iterative_long(Xm, ctx, gamma=0.0, n_imp=None, n_candidates=50):
             boot_rows = np.concatenate([rows_of[c] for c in bp])
         else:
             boot_rows = np.arange(len(Xm))
-        for _ in range(ctx.mice_iter):
+        for sweep in range(ctx.mice_iter):
             for k in order:
                 miss = M[:, k]
                 if not miss.any():
@@ -501,6 +525,8 @@ def _iterative_long(Xm, ctx, gamma=0.0, n_imp=None, n_candidates=50):
                     cand = mu[:, None] + sigma * rs.normal(size=(len(mi_rows), n_candidates))
                     w = _expit(a_k[k] - gamma * (cand - mu_o[k]) / sd_o[k])
                     w = w / w.sum(axis=1, keepdims=True)
+                    if want_ess and sweep == ctx.mice_iter - 1:
+                        ess_vals.append(1.0 / (w ** 2).sum(axis=1))   # weights sum to 1
                     if n_imp > 1:
                         u = rs.random(len(mi_rows))[:, None]
                         pick = (np.cumsum(w, axis=1) < u).sum(axis=1)
@@ -511,6 +537,9 @@ def _iterative_long(Xm, ctx, gamma=0.0, n_imp=None, n_candidates=50):
                     val = mu + rs.normal(0.0, sigma, size=mu.shape) if n_imp > 1 else mu
                 cur[mi_rows, k] = val
         draws.append(cur.copy())
+    if want_ess:
+        LAST_DIAGNOSTICS.update(gamma=float(gamma), candidates=int(n_candidates),
+                                **_ess_summary(np.concatenate(ess_vals) if ess_vals else []))
     return np.mean(draws, axis=0), (draws if n_imp > 1 else None)
 
 
@@ -539,6 +568,20 @@ class MethodInfo:
     new: bool = False                 # introduced by MIPY
     main: bool = True                 # part of the main benchmark tables
     rev: str = ""                     # revision; part of the checkpoint fingerprint
+    adapted: bool = False             # published method changed here (see evidence)
+
+    @property
+    def evidence(self) -> str:
+        """Evidence behind the method as implemented, as in the MIPY paper:
+        "yes" (a peer-reviewed publication describes it), "adapted" (a
+        published method changed in engine, stopping rule or unit of
+        application) or "no" (no peer-reviewed description; this includes
+        the methods new in MIPY)."""
+        if self.adapted:
+            return "adapted"
+        if self.new:
+            return "no"
+        return "yes" if self.peer_reviewed else "no"
 
 
 _M = MethodInfo
@@ -548,14 +591,14 @@ METHODS = {m.name: m for m in [
     _M("LOCF", imp_locf, "Longitudinal", False, "pandas", "groupby().ffill().bfill()", "", longitudinal=True),
     _M("KNN", imp_knn, "Neighbour", True, "scikit-learn", "KNNImputer", "troyanskaya2001"),
     _M("softImpute", imp_softimpute, "Low-rank", True, "mipy (numpy)", "soft-thresholded SVD, CV lambda", "mazumder2010softimpute", rev="cv-lambda-v2"),
-    _M("MICE-Bayes", imp_mice_bayes, "Chained", True, "mipy (scikit-learn)", "BayesianRidge in FCS loop", "vanbuuren2011mice", multiple=True, rev="proper-draws-v2"),
-    _M("missForest", imp_missforest, "Chained", True, "mipy (scikit-learn)", "ExtraTreesRegressor in FCS loop", "stekhoven2012missforest", slow=True),
+    _M("MICE-Bayes", imp_mice_bayes, "Chained", True, "mipy (scikit-learn)", "BayesianRidge in FCS loop", "vanbuuren2011mice", multiple=True, rev="proper-draws-v2", adapted=True),
+    _M("missForest", imp_missforest, "Chained", True, "mipy (scikit-learn)", "ExtraTreesRegressor in FCS loop", "stekhoven2012missforest", slow=True, adapted=True),
     _M("sklearn-II", imp_sklearn_ii, "Chained", False, "scikit-learn", "IterativeImputer", "pedregosa2011sklearn"),
     _M("miceforest", imp_miceforest, "Chained", False, "miceforest", "ImputationKernel().mice()", "wilson2024miceforest", needs="miceforest", slow=True, rev="one-thread-v2"),
     _M("HyperImpute", imp_hyperimpute, "AutoML", True, "hyperimpute", "Imputers().get('hyperimpute')", "jarrett2022hyperimpute", needs="hyperimpute", slow=True),
     _M("GAIN", imp_gain, "Generative", True, "hyperimpute", "Imputers().get('gain')", "yoon2018gain", needs="hyperimpute", slow=True),
-    _M("MinProb", imp_minprob, "Left-censored", True, "mipy (numpy)", "MinProb, per protein", "lazar2016"),
-    _M("QRILC", imp_qrilc, "Left-censored", True, "mipy (scipy)", "QRILC, per protein", "lazar2016"),
+    _M("MinProb", imp_minprob, "Left-censored", True, "mipy (numpy)", "MinProb, per protein", "lazar2016", adapted=True),
+    _M("QRILC", imp_qrilc, "Left-censored", True, "mipy (scipy)", "QRILC, per protein", "lazar2016", adapted=True),
     _M("MICE-Long", imp_mice_long, "Longitudinal chained", False, "mipy", "FCS + within-patient terms, cluster bootstrap", "resche2018", multiple=True, longitudinal=True, new=True, rev="long-v1"),
     _M("MICE-LongMNAR", imp_mice_long_mnar, "Selection-model MNAR", False, "mipy", "MICE-Long + selection-model draws (gamma)", "tompsett2018", multiple=True, longitudinal=True, new=True, rev="longmnar-v1"),
     _M("MinProb-R", imp_minprob_r, "Left-censored", True, "mipy (numpy)", "MinProb, per sample (imputeLCMD)", "lazar2016", main=False),
@@ -579,6 +622,7 @@ def run(name: str, X, ctx: Optional[ImputeContext] = None):
     """Run one method; observed cells are restored afterwards."""
     ctx = ctx or ImputeContext()
     X = np.asarray(X, dtype=float)
+    LAST_DIAGNOSTICS.clear()
     out, draws = METHODS[name].fn(X.copy(), ctx)
     out = np.asarray(out, dtype=float)
     if out.shape != X.shape:

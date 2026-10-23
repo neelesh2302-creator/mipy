@@ -1,0 +1,53 @@
+patients,engine,step,rows,detail,seconds,peak_MB,status,nrmse
+10000,numpy,impute:LOCF,37001.0,,0.059052228927612305,2.17578125,ok,0.7223021984100342
+100000,numpy,impute:LOCF,369831.0,,0.6526837348937988,26.13671875,ok,0.7188410758972168
+1000000,numpy,impute:LOCF,3700452.0,,6.225509881973267,152.5234375,ok,0.768795371055603
+10000000,numpy,impute:LOCF,,,,,skipped (needs about 4.1 GB),
+10000,numpy,impute:Mean,37001.0,,0.0,1.89453125,ok,1.038826584815979
+100000,numpy,impute:Mean,369831.0,,0.06330585479736328,29.09765625,ok,1.078938364982605
+1000000,numpy,impute:Mean,3700452.0,,0.41769838333129883,151.85546875,ok,1.0791231393814087
+10000000,numpy,impute:Mean,,,,,skipped (needs about 4.1 GB),
+10000,numpy,impute:sklearn-II,37001.0,,0.7498424053192139,20.125,ok,0.28060829639434814
+100000,numpy,impute:sklearn-II,369831.0,,1.820758581161499,121.26953125,ok,0.23363959789276123
+1000000,numpy,impute:sklearn-II,3700452.0,,8.96916937828064,230.68359375,ok,0.359697550535202
+10000000,numpy,impute:sklearn-II,,,,,skipped (needs about 4.1 GB),
+10000,numpy,impute:softImpute,37001.0,,1.0326464176177979,39.75390625,ok,0.6606146097183228
+100000,numpy,impute:softImpute,369831.0,,1.920773983001709,177.28515625,ok,0.6315038204193115
+1000000,numpy,impute:softImpute,3700452.0,,6.048940896987915,336.28125,ok,0.7870880961418152
+10000000,numpy,impute:softImpute,,,,,skipped (needs about 4.1 GB),
+10000,duckdb,long_to_wide,37001.0,"37,001 rows rebuilt",0.07828712463378906,30.41796875,ok,
+100000,duckdb,long_to_wide,369831.0,"369,831 rows rebuilt",0.37372326850891113,347.59765625,ok,
+1000000,duckdb,long_to_wide,3700452.0,"3,700,452 rows rebuilt",3.1163973808288574,2900.21875,ok,
+10000000,duckdb,long_to_wide,,,,,skipped (needs about 8.3 GB),
+10000,pandas,long_to_wide,37001.0,"37,001 rows rebuilt",0.1591174602508545,34.765625,ok,
+100000,pandas,long_to_wide,369831.0,"369,831 rows rebuilt",1.5179309844970703,456.37890625,ok,
+1000000,pandas,long_to_wide,,,,,skipped (needs about 2.2 GB),
+10000000,pandas,long_to_wide,,,,,skipped (needs about 22.1 GB),
+10000,polars,long_to_wide,37001.0,"37,001 rows rebuilt",0.07688617706298828,51.4765625,ok,
+100000,polars,long_to_wide,369831.0,"369,831 rows rebuilt",0.23563313484191895,215.61328125,ok,
+1000000,polars,long_to_wide,,,,,skipped (needs about 1.1 GB),
+10000000,polars,long_to_wide,,,,,skipped (needs about 11.0 GB),
+10000,duckdb,match,37001.0,"matched 9,990; visits without clinical row 10; clinical rows without visits 10",0.096282958984375,7.69921875,ok,
+100000,duckdb,match,369831.0,"matched 99,900; visits without clinical row 100; clinical rows without visits 100",0.07904481887817383,3.10546875,ok,
+1000000,duckdb,match,3700452.0,"matched 999,000; visits without clinical row 1,000; clinical rows without visits 1,000",0.6318845748901367,101.95703125,ok,
+10000000,duckdb,match,,,,,skipped (needs about 8.3 GB),
+10000,pandas,match,37001.0,"matched 9,990; visits without clinical row 10; clinical rows without visits 10",0.011061668395996094,1.515625,ok,
+100000,pandas,match,369831.0,"matched 99,900; visits without clinical row 100; clinical rows without visits 100",0.045046329498291016,12.40625,ok,
+1000000,pandas,match,,,,,skipped (needs about 2.2 GB),
+10000000,pandas,match,,,,,skipped (needs about 22.1 GB),
+10000,polars,match,37001.0,"matched 9,990; visits without clinical row 10; clinical rows without visits 10",0.038472652435302734,5.0234375,ok,
+100000,polars,match,369831.0,"matched 99,900; visits without clinical row 100; clinical rows without visits 100",0.03506207466125488,0.01953125,ok,
+1000000,polars,match,,,,,skipped (needs about 1.1 GB),
+10000000,polars,match,,,,,skipped (needs about 11.0 GB),
+10000,duckdb,wide_to_long,37001.0,"333,100 long rows",0.05732583999633789,28.84765625,ok,
+100000,duckdb,wide_to_long,369831.0,"3,328,139 long rows",0.45681262016296387,320.6796875,ok,
+1000000,duckdb,wide_to_long,3700452.0,"33,303,337 long rows",6.758786678314209,2710.11328125,ok,
+10000000,duckdb,wide_to_long,,,,,skipped (needs about 8.3 GB),
+10000,pandas,wide_to_long,37001.0,"333,100 long rows",0.030568838119506836,8.51171875,ok,
+100000,pandas,wide_to_long,369831.0,"3,328,139 long rows",0.24904823303222656,199.30859375,ok,
+1000000,pandas,wide_to_long,,,,,skipped (needs about 2.2 GB),
+10000000,pandas,wide_to_long,,,,,skipped (needs about 22.1 GB),
+10000,polars,wide_to_long,37001.0,"333,100 long rows",0.030820846557617188,20.58203125,ok,
+100000,polars,wide_to_long,369831.0,"3,328,139 long rows",0.05686211585998535,194.91796875,ok,
+1000000,polars,wide_to_long,,,,,skipped (needs about 1.1 GB),
+10000000,polars,wide_to_long,,,,,skipped (needs about 11.0 GB),

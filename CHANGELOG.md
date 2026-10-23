@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.1.1 (2026-10-24)
+
+For the revised MIPY paper.
+
+* `Amputer.ampute("PROBIT", ...)`: a second not-at-random masking design with a
+  probit selection, Pr(masked) = Phi(alpha - beta z). `Amputer.matched_probit_slope()`
+  gives the slope whose masked cells have the same expected mean z as the
+  logistic MNAR design, and `Amputer.expected_masked_z()` the expected mean z of
+  either design. MCAR, MAR, MNAR and LOD masks are unchanged.
+* MICE-LongMNAR can record the effective sample size of its importance
+  resampling (`ctx.extra["ess"] = True`); the summary is returned in the run
+  record as `diag`. Recording it draws no random numbers, so the imputations
+  are identical with or without it.
+* `mipy.mi.fmi_summary` documents the within-imputation variance it uses.
+* `list_methods()`, the methods table of `analyze()` and the README give the
+  evidence behind each method as "yes", "adapted" or "no", as in the paper:
+  MICE-Bayes, missForest, MinProb and QRILC are now "adapted" (a published
+  method changed in engine, stopping rule or unit of application), and the
+  multiple-imputation versions new in MIPY are "no". `MethodInfo.evidence`
+  gives the class. Results and checkpoints are unchanged.
+* `notebooks/MIPY_v2_pipeline.ipynb` is the pipeline of the revised paper, and
+  `paper/output` holds the files of its run of 21 October 2026.
+* Known issue: hyperimpute's GAIN plugin (0.1.1 to 0.1.17) does not pass
+  `n_epochs`, batch size or hint rate to the model it trains, so GAIN always
+  trains with the model's defaults (1,000 iterations, batch 256, hint rate 0.9)
+  and `gain_epochs` has no effect. The analysis pipeline records the settings
+  actually used.
+
 ## 2.1.0 (2026-10-16)
 
 For users with their own data.

@@ -1,0 +1,19 @@
+id,gate,label,passed
+C1,A,core scientific stack importable,True
+C2,A,both datasets located,True
+RFS.C3,A,ID and visit columns identified,True
+RFS.C4,A,protein count = 507,True
+RFS.C5,A,"no duplicate (patient, visit) rows",True
+RFS.C6,A,288 observations,True
+RFS.C7,A,80 patients,True
+RFS.C8,A,overall missingness matches R (10.5%),True
+RFS.C9,A,named proteins match published missingness,True
+MFS.C3,A,ID and visit columns identified,True
+MFS.C4,A,protein count = 507,True
+MFS.C5,A,"no duplicate (patient, visit) rows",True
+MFS.C6,A,288 observations,True
+MFS.C7,A,80 patients,True
+MFS.C8,A,overall missingness matches R (10.5%),True
+MFS.C9,A,named proteins match published missingness,True
+C10,A,protein blocks identical in both files (cell by cell),True
+C11,A,every patient keeps the baseline sampling point,True

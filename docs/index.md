@@ -153,16 +153,22 @@ already finished are reused if you stop and start again.
 | LOCF | longitudinal rule | no | yes | no |
 | KNN | neighbour | no | no | yes (Troyanskaya et al. 2001) |
 | softImpute | low-rank | no | no | yes (Mazumder et al. 2010) |
-| MICE-Bayes | chained equations | yes | no | yes (van Buuren & Groothuis-Oudshoorn 2011) |
-| missForest | chained equations | no | no | yes (Stekhoven & Buhlmann 2012) |
+| MICE-Bayes | chained equations | yes | no | adapted (van Buuren & Groothuis-Oudshoorn 2011) |
+| missForest | chained equations | no | no | adapted (Stekhoven & Buhlmann 2012) |
 | sklearn-II | chained equations | no | no | no (scikit-learn IterativeImputer) |
 | miceforest | chained equations | no | no | no |
 | HyperImpute | AutoML | no | no | yes (Jarrett et al. 2022) |
 | GAIN | generative | no | no | yes (Yoon et al. 2018) |
-| MinProb, QRILC | left-censored | no | no | yes (Lazar et al. 2016) |
+| MinProb, QRILC | left-censored | no | no | adapted (Lazar et al. 2016) |
 | **MICE-Long** | longitudinal chained | yes | yes | new in MIPY |
 | **MICE-LongMNAR** | selection-model MNAR | yes | yes | new in MIPY |
 | softImpute-MI, missForest-MI, miceforest-MI | MI versions | yes | no | new in MIPY |
+
+*Adapted*: a published method changed in engine, stopping rule or unit of
+application. MICE-Bayes uses Bayesian ridge in place of mice's least squares,
+missForest uses extremely randomised trees and five fixed sweeps in place of
+the stopping rule, and MinProb and QRILC work per protein rather than per
+sample. The exact imputeLCMD versions are `MinProb-R` and `QRILC-R`.
 
 * **MICE-Long**: chained equations that use each patient's previous visit,
   next visit and own mean, with a patient-level bootstrap (proper multiple
@@ -193,9 +199,11 @@ publication behind each.
 ## Reproducing the MIPY paper
 
 `notebooks/MIPY_v2_pipeline.ipynb` runs the full GSE65622 analysis of the
-paper (all methods, multiple imputation, MNAR sensitivity, agreement with R,
-data handling up to millions of patients, a synthetic second cohort, the
-survival screen) and writes every number, table and figure.
+paper (all methods, multiple imputation, MNAR sensitivity with logistic and
+probit designs, agreement with R, data handling up to a million patients, a
+synthetic second cohort) and writes every number, table and figure. The files
+of the paper's run (21 October 2026) are in [`paper/output`](https://github.com/neelesh2302-creator/mipy/tree/main/paper).
+The GSE65622 analysis files themselves are not in the repository.
 
 ## Tests
 

@@ -1,0 +1,21 @@
+step,mech,status,seconds
+package:softImpute,,ok,
+package:missForest,,ok,
+package:mice,,ok,
+package:imputeLCMD,,ok,
+softImpute,MCAR,ok,13.66
+missForest,MCAR,ok,286.9
+mice,MCAR,error: missing value where TRUE/FALSE needed,58.5700000000001
+mice-ridge,MCAR,ok,127.69
+imputeLCMD,MCAR,ok,3.69
+softImpute,MAR,ok,11.3799999999999
+missForest,MAR,ok,645.53
+mice,MAR,error: missing value where TRUE/FALSE needed,39.79
+mice-ridge,MAR,ok,127.66
+imputeLCMD,MAR,ok,3.47000000000003
+softImpute,MNAR,ok,17.8800000000001
+missForest,MNAR,ok,577.08
+mice,MNAR,error: 0 (non-NA) cases,28.6199999999999
+mice-ridge,MNAR,ok,131.13
+imputeLCMD,MNAR,ok,3.55999999999995
+done,,ok,

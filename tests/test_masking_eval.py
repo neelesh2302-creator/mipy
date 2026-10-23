@@ -46,3 +46,17 @@ def test_rubin_and_coverage():
     draws = [mu + rs.normal(size=mu.shape) for _ in range(5)]
     cov = mipy.predictive_coverage(truth, draws, mask)["coverage"]
     assert 0.9 < cov < 0.99
+
+
+def test_probit_design_matches_logistic_strength(cohort):
+    X = cohort["X"]
+    am = Amputer(X, time=cohort["time"], rate=0.2, strength=2.0)
+    b = am.matched_probit_slope()
+    assert 0.5 < b < 2.0
+    assert abs(am.expected_masked_z(b, "probit") - am.expected_masked_z(2.0, "logit")) < 1e-3
+    amp = am.ampute("PROBIT", 11, strength=b)
+    rate = amp["mask"].sum() / np.isfinite(X).sum()
+    assert 0.17 < rate < 0.21
+    assert am.Z[amp["mask"]].mean() < -0.3
+    # the other designs are unaffected by the new branch
+    assert np.array_equal(am.ampute("MNAR", 4)["mask"], am.ampute("MNAR", 4)["mask"])

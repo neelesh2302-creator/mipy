@@ -1,0 +1,6 @@
+situation,rule,recommended,runner-up,evidence
+"Missing at random, moderate size","lowest mean nRMSE (MCAR, MAR)",softImpute,MICE-Long,nRMSE 0.616
+Values lost below a detection limit (MNAR),lowest mean nRMSE over the MNAR and LOD designs; report the gamma grid,MICE-LongMNAR,MICE-Long,nRMSE 1.163
+Uncertainty must be carried forward (multiple imputation),lowest nRMSE among MI methods whose 95% intervals cover 90-100% under MCAR,MICE-Long,MICE-LongMNAR,coverage 95%
+"Large cohorts (100,000 rows and more)","lowest nRMSE among methods finishing within 300 s at 100,000 rows",softImpute,LOCF,nRMSE 0.616
+Within-patient change is the outcome,"per-completion SD ratio (MCAR, MAR) closest to 1 among MI methods; completions pooled by Rubin's rules",MICE-Long,MICE-LongMNAR,mean |SD ratio - 1| = 0.029

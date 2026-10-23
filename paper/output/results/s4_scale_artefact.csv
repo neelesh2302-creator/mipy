@@ -1,0 +1,4 @@
+mechanism,pooled r (misleading),within-protein r,proteins with undefined r
+MCAR,0.938,undefined,507
+MAR,0.948,undefined,507
+MNAR,0.96,undefined,507

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mipy-impute"
-version = "2.1.0"
+version = "2.1.1"
 description = "MIPY: missing-data imputation and benchmarking in Python for high-dimensional longitudinal data"
 readme = "README.md"
 license = "MIT"

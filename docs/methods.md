@@ -2,8 +2,12 @@
 
 Every imputer has the same signature, `fn(X, ctx) -> (completed, draws)`, and
 is listed in `mipy.METHODS` with its family, the package and function it calls,
-whether a peer-reviewed publication describes it, and whether it returns
-multiple completions. `mipy.list_methods()` shows the table.
+the evidence behind it as implemented, and whether it returns multiple
+completions. `mipy.list_methods()` shows the table. Evidence is "yes" when a
+peer-reviewed publication describes the method as implemented, "adapted" when
+a published method was changed in engine, stopping rule or unit of application
+(MICE-Bayes, missForest, MinProb, QRILC), and "no" otherwise, including the
+methods new in MIPY.
 
 ## New in MIPY
 

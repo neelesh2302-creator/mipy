@@ -1,0 +1,16 @@
+package,methods,package_paper,peer_reviewed,longitudinal,high_dimensional
+scikit-learn,"SimpleImputer, KNNImputer, IterativeImputer","Pedregosa et al. 2011, JMLR 12:2825-2830 (general library paper)",library yes; IterativeImputer no,not stated,not stated
+miceforest,"MICE with LightGBM, mean matching",none found,no,not stated,not stated
+hyperimpute,"HyperImpute; plugins incl. GAIN, MissForest, MICE, SoftImpute","Jarrett et al. 2022, ICML, PMLR 162:9916-9937",yes,no (cross-sectional UCI data),no (at most 91 features)
+fancyimpute,"SoftImpute, KNN, IterativeSVD, MatrixFactorization, NuclearNorm",none (software DOI 10.5281/zenodo.51773),methods only,not stated,not stated
+missingpy,"KNNImputer, MissForest",none,methods only,not stated,method paper yes (p > n proteomics)
+missforest,MissForest (LightGBM default),none (software DOI 10.5281/zenodo.13368883),methods only,not stated,method paper yes
+statsmodels,"MICEData / MICE (OLS, PMM, pooling)","Seabold & Perktold 2010, Proc. SciPy, 92-96 (general library paper)",library only,not stated,not stated
+autoimpute,"univariate, Bayesian regression, PMM, MICE, LOCF/NOCB",none found,no,"time-series interpolation, not evaluated",not stated
+impyute,"mean, KNN, MICE, EM, LOCF, moving window",none found,no,"time-series methods, not evaluated",not stated
+datawig,deep-learning imputation for mixed tables,"Biessmann et al. 2019, JMLR 20(175):1-6; Biessmann et al. 2018, CIKM 2017-2025",yes,not stated,not stated
+MIDASpy,multiple imputation with denoising autoencoders,"Lall & Robinson 2023, J Stat Softw 107(9):1-38",yes,no,yes (349 columns)
+Pympute,per-variable model selection among 10 learners,"Vafaei Sadr et al. 2025, Sci Rep 15:17176",yes,not stated,"no (43-45 variables, about 10,800 patients)"
+PyPOTS,"time-series imputation (SAITS, BRITS, CSDI, ...)",preprint only (arXiv:2305.18811),no (preprint),"time series, not evaluated in the paper",no
+ImputeGAP,40+ time-series imputation algorithms,preprint only (arXiv:2503.15250),no (preprint),"time series, not evaluated",not stated
+mipy (this work),"13 benchmarked methods + MICE-Long, MICE-LongMNAR, MI wrappers",this manuscript,under review,yes (repeated visits),"yes (507 proteins, 80 patients)"

@@ -24,7 +24,7 @@ Lower-level functions
 """
 from __future__ import annotations
 
-__version__ = "2.1.0"
+__version__ = "2.1.1"
 
 from typing import Iterable, Optional, Sequence
 
@@ -51,13 +51,15 @@ __all__ = ["analyze", "Result", "prepare_data", "read_table", "DataError", "exam
 
 def list_methods(main_only=False) -> pd.DataFrame:
     """The available methods, the package and function each calls, and
-    whether a peer-reviewed publication describes it."""
+    the evidence behind each as implemented: "yes" (a peer-reviewed
+    publication describes it), "adapted" (a published method changed in
+    engine, stopping rule or unit of application) or "no"."""
     rows = []
     for m in METHODS.values():
         if main_only and not m.main:
             continue
         rows.append({"method": m.name, "family": m.family, "package": m.package,
-                     "function": m.function, "peer-reviewed": "yes" if m.peer_reviewed else "no",
+                     "function": m.function, "peer-reviewed": m.evidence,
                      "multiple imputation": "yes" if m.multiple else "no",
                      "uses patients": "yes" if m.longitudinal else "no",
                      "new in MIPY": "yes" if m.new else "no",

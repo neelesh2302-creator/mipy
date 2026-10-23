@@ -268,14 +268,21 @@ python -m twine check --strict dist/*
    saving.
 2. **Upload:**
 
+   Twine's "Enter your API token:" prompt hides what you paste, and Ctrl+V
+   does not work there on Windows. Give the token to the window instead
+   (type `set "TWINE_PASSWORD=`, right-click to paste the token, type `"`,
+   press Enter):
+
 ```bat
+set "TWINE_USERNAME=__token__"
+set "TWINE_PASSWORD=pypi-...your TestPyPI token..."
 python -m twine upload --repository testpypi dist/*
+set TWINE_PASSWORD=
 ```
 
-   If twine asks for a username, type `__token__` (two underscores on each
-   side). When it asks for the API token or password, right-click to paste
-   it; nothing appears on screen, which is normal. Press Enter. The upload
-   ends with `View at: https://test.pypi.org/project/mipy-impute/2.1.0/`.
+   The upload ends with
+   `View at: https://test.pypi.org/project/mipy-impute/2.1.0/`. The last
+   line clears the token; closing the window does the same.
 3. Open that link. The README shows, figure included.
 4. **Install it like a stranger, in a fresh environment.** The dependencies
    come from the real PyPI, only mipy-impute from TestPyPI:
@@ -307,7 +314,10 @@ Only when Checkpoints 2 to 8 passed and the co-authors agreed.
 ```bat
 conda activate gse
 cd /d C:\Users\DELL\Missing_Python\mipy_pkg
+set "TWINE_USERNAME=__token__"
+set "TWINE_PASSWORD=pypi-...your pypi.org token..."
 python -m twine upload dist/*
+set TWINE_PASSWORD=
 ```
 
    It ends with `View at: https://pypi.org/project/mipy-impute/2.1.0/`.
