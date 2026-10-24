@@ -3,6 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/mipy-impute.svg)](https://pypi.org/project/mipy-impute/)
 [![Python](https://img.shields.io/pypi/pyversions/mipy-impute.svg)](https://pypi.org/project/mipy-impute/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/neelesh2302-creator/mipy/blob/main/LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23617366.svg)](https://doi.org/10.5281/zenodo.23617366)
 
 MIPY finds out which imputation method works best on **your** data, fills in
 the missing values with it, and gives you the tables, figures and a report to
